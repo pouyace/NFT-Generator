@@ -63,12 +63,15 @@ class DragonGenerator:
         images = []
         counter = 0
         for i in ITEMS.items():
+            if i[0] == EYESCOLOR:
+                continue
             newImage = self.openImage(dragon, i[0])
             images.append(newImage)
             if counter > 0:
                 images[0] = Image.alpha_composite(images[0], newImage)
             counter += 1
-        Image.save(images[0])
+        images[0].save(NFTsDir + dragon.info[NAME] + '.png')
+        # images[0].show()
 
     def openImage(self, dragon, item):
         dragon = dragon.info
@@ -76,19 +79,20 @@ class DragonGenerator:
         suffix = '.png'
         switcher = {
             BACKGROUND: dragon[BACKGROUND] + '.jpg',
-            BODY:       dragon[TYPE] + '\\' + dragon[TYPE],
-            EYES:       dragon[EYESCOLOR] + '\\' + dragon[EYES],
-            GLASSES:    dragon[GLASSES],
-            HAIR:       dragon[TYPE] + '\\' + dragon[HAIR],
-            HEAD:       dragon[TYPE] + '\\' + dragon[TYPE],
-            HORN:       dragon[TYPE] + '\\' + dragon[HORN],
-            ORB:        dragon[ORB]
+            BODY:       dragon[TYPE] + '\\' + dragon[TYPE] + suffix,
+            EYES:       dragon[EYESCOLOR] + '\\' + dragon[EYES] + suffix,
+            GLASSES:    dragon[GLASSES] + suffix,
+            HAIR:       dragon[TYPE] + '\\' + dragon[HAIR] + suffix,
+            HEAD:       dragon[TYPE] + '\\' + dragon[TYPE] + suffix,
+            HORN:       dragon[TYPE] + '\\' + dragon[HORN] + suffix,
+            ORB:        dragon[ORB] + suffix
         }
         imagePath += switcher.get(item)
-        if item != BACKGROUND:
-            imagePath += suffix
         if os.path.exists(imagePath):
             img = Image.open(imagePath)
+            if item == BACKGROUND:
+                img = img.convert("RGBA")
+                mode = img.mode
             return img
         else:
             print("FFFFFFFFF")

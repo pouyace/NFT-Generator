@@ -2,7 +2,7 @@
 NFTsCount = 1200
 BACKGROUNDCOLORS = ["Blossom-bg", "Dessert-bg", "Island-bg", "Mountain-bg", "Tropical-bg"]
 ITEMSDIR         = "..\\Circle of Light\\"
-
+NFTsDir          = '..\\NFTs\\'
 
 # System Config
 Probability = "Prob"
