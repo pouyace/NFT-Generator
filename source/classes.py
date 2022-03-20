@@ -28,6 +28,11 @@ class DragonGenerator:
 
             for i in ITEMS.items():
                 if TYPE in i[1].keys():
+                    if i[0] == GLASSES:
+                        r = round(random.random(),2)
+                        if r > 0.2:
+                            info[i[0]] = ''
+                            continue
                     result = self.randomSelect(i[1][TYPE])
                     info[NAME] += result + '_'
                     info[i[0]] = result
@@ -63,14 +68,20 @@ class DragonGenerator:
         images = []
         counter = 0
         for i in ITEMS.items():
-            if i[0] == EYESCOLOR:
+            if i[0] == EYESCOLOR or (i[0] == GLASSES and (dragon.info[GLASSES] == '')):
                 continue
             newImage = self.openImage(dragon, i[0])
+            if newImage == None or newImage is None:
+                print("What the hell?")
             images.append(newImage)
             if counter > 0:
-                images[0] = Image.alpha_composite(images[0], newImage)
+                try:
+                    images[0] = Image.alpha_composite(images[0], newImage)
+                except:
+                    print("Error ", i[0], dragon.info)
             counter += 1
         images[0].save(NFTsDir + dragon.info[NAME] + '.png')
+        print(dragon.info , "Saved")
         # images[0].show()
 
     def openImage(self, dragon, item):
@@ -90,9 +101,12 @@ class DragonGenerator:
         imagePath += switcher.get(item)
         if os.path.exists(imagePath):
             img = Image.open(imagePath)
+            #print(img.size)
             if item == BACKGROUND:
                 img = img.convert("RGBA")
-                mode = img.mode
+                #print("Background found.")
+            #img.close()
             return img
         else:
-            print("FFFFFFFFF")
+            print("path=", imagePath)
+            print("Could not open image")

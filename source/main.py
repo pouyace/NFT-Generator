@@ -3,7 +3,7 @@ from classes import *
 def startOperation():
     generator = DragonGenerator()
     counter = 0
-    while counter != 1:
+    while counter != 50:
         dragon = generator.generate()
         print(dragon.info)
         counter += 1

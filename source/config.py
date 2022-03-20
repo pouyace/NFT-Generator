@@ -1,6 +1,6 @@
 # User Config
 NFTsCount = 1200
-BACKGROUNDCOLORS = ["Blossom-bg", "Dessert-bg", "Island-bg", "Mountain-bg", "Tropical-bg"]
+BACKGROUNDCOLORS = ["Blossom-bg", "Desert-bg", "Island-bg", "Mountain-bg", "Tropical-bg"]
 ITEMSDIR         = "..\\Circle of Light\\"
 NFTsDir          = '..\\NFTs\\'
 
